@@ -1,0 +1,30 @@
+<a>
+<div class="holder">
+<div class="holder2"><p>垂直居中文字</p></div>
+</div>
+</a>
+
+
+<style>
+
+/*       *background:#f700ff;只对ie7 有作用      */
+/*.holder {*background:#f700ff;}  */
+
+.holder {background:#f700ff;}   /*兼容到ie7和ie8*/
+
+.holder{width:100px;; height:62px; display:table; position: relative;  /* 这里 position: relative; 也可以改为 position: absolute;  下面的不可以改*/
+            background: -webkit-linear-gradient(left, #007eff, #00b8ff); /*兼容谷歌 */
+            background: -ms-linear-gradient(left, #007eff, #00b8ff);  /*兼容ie7 */
+            cursor: pointer;
+}
+          
+.holder div{*position: absolute;*top:50%;left:0; display:table-cell; vertical-align:middle; width:100%;}
+.holder2 p{*position: relative;*top:-50%;text-align:center;margin:0 auto; padding:0;color:white;font-size:14px;font-family:'microsoft yahei';}
+
+</style>
+
+
+说明：
+*position: absolute;*top:50%;和*position: relative;*top:-50%;只对ie7起作用（Ie7垂直居中），其他浏览器根据display:table;和display:table-cell; vertical-align:middle; 实现
+垂直居中
+水平居中实现：margin:0 auto; 其中父元素需要设置宽度。

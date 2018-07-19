@@ -1,0 +1,71 @@
+setTimeout(function(){
+    console.log(0);
+}, 1000);
+
+setTimeout(function(){
+    console.log(1);
+}, 1000);
+
+setTimeout(function(){
+    console.log(2);
+}, 1000);
+
+setTimeout(function(){
+    console.log(3);
+}, 1000);
+
+setTimeout(function(){
+    console.log(4);
+}, 1000);   
+
+
+
+输出结果是：停止1s后  立即输出0 1 2 3 4 
+分析：程序都是先执行同步>异步>回调，程序从上到下依次执行，遇到同步代码立即执行，遇到异步和回调的函数先放入消息队列，同步代码执行完之后去消息队列先执行异步代码，
+执行异步之后最后执行回调函数，根据进入消息队列的先后时间进行执行回调
+
+所以本程序，setTimeout()函数是回调函数，依次被放入消息队列里面。
+
+注意：setTimeout的起始计算时间是根据放入消息队列的时间开始算，所以5个setTimeout函数几乎同时放入消息队列里面，当第一个setTimeout函数等待1s后执行，
+剩下的4个也近乎等待了1s，所以5个函数依次都执行。
+
+
+例子
+for (var i = 0; i < 5; i++) {
+        setTimeout(function() {
+            console.log(i);
+        }, 1000);
+}
+console.log(i);//最先执行
+
+输出结果是：5 5 5 5 5 5
+立即输出5  等待1s后 立即输出 5 5 5 5 5
+
+
+解决办法：
+for (var i = 0; i < 5; i++) {
+    (function(i) {
+        setTimeout(function() {
+            console.log(i);
+        }, 1000);
+    })(i);
+
+}
+console.log(i);//最先执行
+
+
+输出结果：5 0 1 2 3 4 
+立即输出5 等待1s后立即输出 0 1 2 3 4 
+
+
+若想输出 0 1 2 3 4 5，则改变顺序
+for (var i = 0; i <= 5; i++) {
+    (function(i) {
+        setTimeout(function() {
+            console.log(i);
+        }, 1000);
+    })(i);
+}
+
+
+

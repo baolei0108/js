@@ -1,0 +1,3 @@
+1. 基本类型： string,number,boolean,null,undefined
+
+2. 引用类型： Function,Array,Object------技术对象系列，typeof()这个三种类型得到的都是object

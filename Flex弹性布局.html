@@ -1,0 +1,34 @@
+<html>
+<head>
+<style>
+        
+#box{
+  display: flex;width: 800px;background:rgb(219, 218, 218);height: 200px;
+  flex-direction: row;   /*分布方向为水平 */
+  justify-content: center;  /* 该行和下行使得容器内的项目垂直居中 */
+  align-items:center;
+}
+
+#box .item{
+   width:100px;
+   height:100px;
+   background:rgb(248, 147, 147);
+   margin-left:10px;margin-top:5px;
+   display:flex;justify-content: center;align-items:center;  /*该行使得item容器内的项目垂直居中*/
+}
+
+</style>
+</head>
+
+<body>
+    
+<h3>使用弹性布局</h3>
+<div id="box">
+    <div class="item" style="border:1px solid yellow;overflow:hidden;text-overflow:ellipsis;white-space:wrap;"><span>11222222222222222222221</span></div>
+    <div class="item">2</div>
+    <div class="item">3</div>
+</div>
+
+
+</body>
+</html>

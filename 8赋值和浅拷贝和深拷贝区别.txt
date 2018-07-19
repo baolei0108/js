@@ -1,0 +1,46 @@
+1、赋值
+name=[1,2,3,['alex','moly']]
+n=name
+
+赋值：传递对象的引用，原始列表name改变，被赋值的n也会做相同的改变
+
+2、浅拷贝
+name=[1,2,3,['alex','moly']]
+name2=name.copy
+
+浅拷贝：拷贝父对象，即拷贝列表name里面的一级元素的内存地址，不会拷贝对象的内部的子对象，如name里面的name[3]里面的对象元素地址。
+
+
+3、深拷贝
+copy 模块的 deepcopy 方法，完全拷贝了父对象及其子对象。即name2不仅拷贝了name中一级元素（1，2，3，["alex","rain"]）的的内存地址，也拷贝了嵌套列表，["alex","rain"]里面的"alex"和"rain"的内存地址。
+
+
+解决深拷贝问题：
+function deepclone(src) {
+    return JSON.parse(JSON.stringify(src));
+ }
+
+var a = JSON.stringify(src)    //a是一个全新的对象
+// a是一个src序列化后得到的字符串 和 src没任何关系的新对象
+var b = JSON.parse(a);    //b是一个全新的对象
+// b 是从字符串a反序列化为一个全新的对象 所以 不但和a没关系 和src更没关系
+
+但是会遇到问题，null和undefined，function不行
+
+
+解决办法：递归所有属性
+let obj = {num: 1, str: 'gg',arr:[12,11,23],nu:null,ud:undefined};
+
+function clone(obj){
+        if(typeof obj!== 'object'){
+            return;
+        }
+        var newObj = obj.constructor === Object ? {} : [];
+        for(let key in obj){
+            newObj[key] = (obj[key] && typeof obj[key] === 'object') ? clone(obj[key]) : obj[key];
+        }
+        return newObj;
+}
+
+clone(obj)
+

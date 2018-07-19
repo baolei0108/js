@@ -1,0 +1,18 @@
+字符串属性：
+constructor
+length
+prototype
+
+
+方法：
+charAt()  返回指定位置的字符
+concat() 连接字符串
+indexOf()  检索字符串
+slice()  提取字符串的片段，并在新的字符串中返回被提取的部分
+split() 把字符串分割成字符串数组
+substr()  从起始位置提取字符串指定数目的字符//start,length
+substring() 提取字符串中两个指定索引之间的字符//start,end
+toLowerCase() 把字符串转换成小写
+toUpperCase() 把字符串转换成大写
+
+

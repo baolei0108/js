@@ -1,0 +1,18 @@
+js
+数组有关方法：
+concat() 连接两个或更多的数组
+join()  将数组的所有元素放入一个字符串，也可指定分隔符
+pop()  删除并返回数组的最后一个元素
+push() 向数组末尾添加元素，并返回新的数组长度
+shift() 删除并返回数组的第一个元素
+unshift() 向数组的开头添加元素，并返回新数组的长度
+reverse() 颠倒数组中元素的顺序
+slice() 从某个已有的数组返回选定的元素，slice(start,end),不改变原数组，返回新数组
+splice() 在原数组上进行删除元素，或者添加新元素  splice(start,count,addvalue)
+toString() 把数组转换为字符串，并返回结果。
+
+
+数组属性：
+constructor
+length
+prototype

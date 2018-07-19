@@ -1,0 +1,24 @@
+创建一个对象实例流程可以是这样子的：
+
+     function Person(name , age){
+         this.name = name;
+         this.age = age;
+         console.log(this); // Person {name: "neo", age: "23"}
+         //return this; 默认隐藏
+     }
+     var p1 = new Person('neo','10');
+     console.log(p1.name);
+
+    等同于：
+     function Person(name , age){
+         this.name = name;
+         this.age = age;
+         console.log(this); //window
+         return this;
+     }
+     var p1 = new Object(); //var p1 = {}
+     p1 = Person('neo','23');
+     console.log(p1.name);
+
+
+最重要的就是：return this
