@@ -53,9 +53,22 @@ for (var i = 0; i < 5; i++) {
 }
 console.log(i);//最先执行
 
-
 输出结果：5 0 1 2 3 4 
 立即输出5 等待1s后立即输出 0 1 2 3 4 
+
+上面其实等同于：
+每一次for，把
+ setTimeout(function() {
+            console.log(0);
+}, 1000);
+ setTimeout(function() {
+            console.log(1);
+}, 1000);
+ setTimeout(function() {
+            console.log(3);
+}, 1000);
+......
+放入到任务队列里面去
 
 
 若想输出 0 1 2 3 4 5，则改变顺序

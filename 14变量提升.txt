@@ -1,4 +1,50 @@
 变量提升：
+重点：
+           函数声明是函数的声明和实现都被提升了。 （  函数必须是声明式，function() {}  ）
+           函数表达式和变量表达式只是其声明被提升了。
+           函数提升在变量提升的前面 
+
 js引擎在读取js代码时会进行两个步骤，第一个步骤是解释，第二个步骤是执行。 
 所谓解释就是会先通篇扫描所有的Js代码，然后把所有声明提升到顶端，第二步是执行，执行就是操作一类的。
 函数声明提升直接把整个函数提到执行环境的最顶端，其次就是变量提升，仅次于函数后面。
+
+变量提升就是声明，并没有赋值。
+
+例子：
+
+原代码：
+console.log(a);
+fn();
+var a = 'aaa';
+function fn() {
+    console.log('this is fn');
+}
+console.log(a);
+fn();
+输出：
+undefined
+this is fn
+aaa
+t
+this is fn
+
+
+
+提升后等同于：
+function fn() {
+    console.log('this is fn');
+}  //函数提升
+var a;  //变量提升
+
+console.log(a);
+fn();
+a = 'aaa';
+console.log(a);
+fn();
+
+输出：
+undefined
+this is fn
+aaa
+t
+this is fn

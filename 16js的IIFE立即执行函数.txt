@@ -1,0 +1,18 @@
+立即执行函数：
+  在函数创建之后立即运行
+
+函数创建方式有两种：
+1）函数表达式
+var myfunction = function ( ) {  ...  }
+2)  函数定义式
+function myfunction( ) {  ....  }
+
+
+立即执行函数实现：
+
+1）函数表达式
+myfunction（）
+
+2）函数定义式
+（function（）{ ... }）( )
+
