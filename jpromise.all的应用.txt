@@ -1,0 +1,119 @@
+一共请求三个接口
+第一个是获得一级标题的所有标题的hitid
+第二个接口根据获得的hitid是获得一级标题的所有小标题的name(一次只能请求一次，需要promise.all)
+第三个接口是获得展示以及标题的第一个hitid的内容
+
+//主题--获得热门讨论上面的name和第一次展示的内容
+$.ajax({
+    url: '/api/relatetopic',
+    type: 'get',
+    data: {
+        CategoryCode: subjectId
+    }
+}).then(function (data) {
+    var arr_name = data.result[0].Data;
+   // console.log('arr_name')
+   // console.log(arr_name)
+
+    if (arr_name.length == 0) {
+        console.log('name 无');
+        return null;
+
+    }
+
+    else{
+
+        var map = arr_name.map(function (v) {
+            return $.ajax({
+                url: '/api/gubatopicdetail',
+                type: 'get',
+                data: {
+                    htid: v
+                }
+            })
+        })
+    
+      //  console.log(map)
+    
+        return jpromise.all(map);
+
+    }
+
+   
+
+
+})
+    .then(function (result) {
+
+      //  console.log('222');
+      //  console.log(result)
+
+         if (result && result.lenth != 0) {
+           // console.log('进来了')
+          //  console.log(result)
+
+            var newres = [];
+
+            for (let i = 0; i < result.length; i++) {
+                var r = result[i];
+                if (r && r.re && r.result) {
+                    newres.push(r.result.re)
+                }
+                
+            }
+            
+            
+
+            var tempfn = doT.template(template2);
+            var html = tempfn({ "array": newres })
+            $("#subject .right .right_bottom .content .top .level1").html(html)
+
+
+            return $.ajax({
+                url: '/api/gubatopics',
+                type: 'get',
+                data: {
+                    htid: result[0].result.re.htid,
+                    ps: 20,
+                    p: 1
+                }
+            })
+
+
+        }
+
+        else {
+            console.log('无数据22');
+            $("#subject .right .right_bottom .content .mian_nav .nodata").css("display","block");
+            $("#subject .right .right_bottom .content .mian_nav .footer").css("display","none");
+
+        }
+
+
+
+
+    })
+    .then(function (result) {
+        // console.log('content')
+        // console.log(result)
+        ///console.log('hhhhh')
+        //// console.info(result.result.re)
+
+        
+
+
+        if (result && result.lenth != 0) {
+
+            var tempfn = doT.template(template3);
+            var html = tempfn({ "array": result.result.re })
+            $("#subject .right .right_bottom .content .mian_nav").html(html)
+
+        }
+
+
+
+    })
+    .fail(function (error) {
+        console.log(error)
+
+    })

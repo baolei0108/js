@@ -1,0 +1,109 @@
+函数作用域：
+
+var a = 10;
+function bar(){
+   console.log(a);
+}
+function foo(){
+  var a=5;
+  bar();
+}
+foo();  //10
+
+解释：
+函数的作用域在函数定义的时候就已经决定了，而不是在执行的时候决定。也就是说，上面的bar函数在定义的时候，它的作用域就已经确定：在该函数内部能够访问到的变量就是它自己定义的变量和上一层作用域中的变量。
+
+
+
+执行上下文：
+
+js代码都是运行在执行上下文中的，最开始，程序直接进入全局的执行上下文（也就是window,或者node里面的global），如果碰到函数function1的执行（不是定义），就进入函数的执行上下文。
+
+例子：
+var a=10;
+
+function   bar(){
+    
+console.log(a)    //undefined
+    
+var a=5;
+    
+function foo(){
+       
+a=3;
+       
+console.log(a);    //3
+    
+}
+    
+foo();
+    
+console.log(a);   //3
+
+}
+
+bar();
+
+console.log(a)；//10
+
+
+
+上述代码执行前，会做上述的3件事，之后，它的执行上下文对应的一个变量看起来是这样子：
+barFunctionContext{
+    
+scopechain{全局的:可以访问到bar,a}
+    
+variable object{
+      
+arguments:{
+          
+length:0,
+          
+callee:(bar)
+     
+},
+      
+a:undefined,
+      
+foo: 指向函数的指针(此时foo输出就是该函数),
+   
+}
+   
+this: window in browser or undefined in node
+
+}
+
+
+
+所以在执行的过程中，console.log(a)就会从当前的执行上下文中寻找a，进而输出undefined，而遇到a=5的时候，改变执行上下文中的a为5，当遇到foo()时，新建一个执行上下文，经过上面三件事之后，新的执行上下文大概像这样：
+
+fooFunctionContext{
+    
+scopechain{
+bar的执行上下文(a已经修改成5，别的不变)}
+    
+variable object{
+      
+arguments:{
+          
+length:0,
+          
+callee:(foo)
+      
+},
+    
+}
+    
+this: window in browser or undefined in node
+
+}
+
+
+
+
+所以修改a的时候会从当前变量对象中查找，没有，就去作用域链中查找，在bar中的执行上下文中发现了a，修改a 的数值，然后输出3.接下来执行上下文出站，继续在bar的上下文中执行，console.log(a)，已经被修改，输出3.bar执行上下文出站，执行console.log(a)，此时是全局的a，也就是10。
+
+
+
+
+

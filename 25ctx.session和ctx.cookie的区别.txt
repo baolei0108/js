@@ -1,0 +1,11 @@
+并总结了ctx.session和ctx.cookie的区别
+ctx.session和ctx.cookie的区别
+设置值：
+ctx.session.name = 'abc'
+ctx.cookies.set('name', 'abc')
+取值：
+var name = ctx.session.name
+var name = ctx.cookies.get('name')
+
+
+

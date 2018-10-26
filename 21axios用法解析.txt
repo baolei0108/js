@@ -1,0 +1,29 @@
+
+const axios = require('axios')
+
+var url1 = 'https://blog.csdn.net/keji_123/article/details/79292064'
+var url2 = 'https://www.jianshu.com/p/df464b26ae58'
+
+function getUserAccount() {
+    return axios.get(url1);
+}
+  
+function getUserPermissions() {
+    return axios.get(url2);
+}
+  
+axios.all([getUserAccount(), getUserPermissions()])
+    .then(axios.spread(function (acct, perms) {
+      // 两个请求现在都执行完成
+      console.log('aa')
+    })
+    
+);
+
+ axios.get('https://blog.csdn.net/keji_123/article/details/79292064')
+  .then(function(response){
+     console.log('111');
+   })
+   .catch(function(err){
+     console.log('22');
+   });

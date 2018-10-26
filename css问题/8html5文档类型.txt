@@ -1,0 +1,3 @@
+在头部声明
+
+<!DOCTYPE HTML>

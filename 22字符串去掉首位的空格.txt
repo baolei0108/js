@@ -1,0 +1,11 @@
+// var arr=" 1 123 2 "
+// arr=arr.split("")  //arr变成数组
+// console.log(arr)
+
+if 最右边是空刚刚
+// arr.pop()
+// console.log(arr)  去掉最右边的空格
+
+if最左边是空格
+// arr.shift()
+// console.log(arr)

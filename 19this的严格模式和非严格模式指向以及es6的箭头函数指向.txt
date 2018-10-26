@@ -1,6 +1,7 @@
 全局环境下
 在全局环境下，this 始终指向全局对象（window）, 无论是否严格模式；
 
+
 函数上下文调用
 普通函数内部的this分两种情况，严格模式和非严格模式。
 
@@ -20,3 +21,71 @@ function f2(){
 }
 
 f2() === undefined; // true
+
+
+//一般情况下：
+在非箭头函数下， this 指向调用其所在函数的对象，而且是离谁近就是指向谁（此对于常规对象，原型链， getter & setter等都适用）；构造函数下，this与被创建的新对象绑定；DOM事件，this指向触发事件的元素；内联事件分两种情况，bind绑定， call & apply 方法等。
+
+
+es6箭头函数的指向问题：
+重点：
+普通函数的this指向的是，被哪个对象调用就指向调用它的那个对象。
+箭头函数里是没有this指向的，所以箭头函数的this是直接绑定到它父级的执行上下文里的this
+
+
+细分三种情况
+1）构造函数内
+构造函数里面的箭头函数里面的this指向的是构造函数新生成的对象
+而普通函数指向了全局window对象
+function Person() {
+    this.age = 0;
+    setTimeout( ( ) => {
+        this.age++;
+        console.log(this);  //Person
+        console.log(this.age)  //1
+    },1000);
+
+    setTimeout( function(){
+        console.log(this);  //window
+        console.log(this.age);  //undefined
+    },1000);
+}
+
+var p = new Person();
+
+2）一般函数内
+箭头函数和普通函数指向的都是window对象
+function pp(){
+    console.log( 'pp,,'+ this);
+    //var a= function a(){ console.log( 'a,,' +  this) }      //window
+    var a= ()=> { console.log( 'a,,' +  this) };                  //window
+    return a;
+}
+
+var b=pp();
+b();
+
+
+3)具体某个对象内（当做一个方法使用）
+箭头函数指向的是window
+普通函数指向的是该当前对象
+
+var obj = {
+    i: 10,
+    b: () => console.log(this.i, this),
+    c: function() {
+      console.log( this.i, this)
+    }
+  }
+  obj.b();  // undefined window{...}
+  obj.c();  // 10 Object {...}
+
+
+
+总结：
+普通函数的this指向的是，被哪个对象调用就指向调用它的那个对象。
+箭头函数里是没有this指向的，所以箭头函数的this是直接绑定到它父级的执行上下文里的this
+
+
+
+

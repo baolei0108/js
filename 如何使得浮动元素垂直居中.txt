@@ -1,0 +1,7 @@
+一般浮动元素都是靠左上角对齐
+
+想要浮动元素垂直居中，就在元素外面包一层div
+使得div垂直居中即可，里面的就自然而然居中了
+
+div外面一层是display:table;
+div设置为display；table-cell;vertical-alian:middle;

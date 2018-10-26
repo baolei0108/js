@@ -1,0 +1,18 @@
+.parent {
+    width:500px;
+    height:500px;
+    border: 1px solid red;
+    display:table;
+}
+
+.son {
+    width:100px;
+    height:100px;
+    border:1px solid black;
+    display: table-cell;
+}
+
+
+此时：
+父元素大小是502*502
+.son的宽度和高度失效，大小变成父元素的500*500（包括border）

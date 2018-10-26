@@ -1,0 +1,19 @@
+<div class="bd_m"></div>
+
+
+.bd_m{
+    width:100%;
+    position: absolute;
+    top:20px;
+    height: 1px;
+    -webkit-transform: scaleY(.5);
+    transform:scaleY(.5);    /*  放大0.5倍，就是乘以1/2 */
+    background: red;
+}
+
+
+解释：
+实为一个高为1px的div，然后在Y轴方向进行压缩一倍transform:scaleY(.5);
+再设置线的颜色为background: red 即完成。
+
+

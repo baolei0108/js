@@ -1,0 +1,13 @@
+<div id="box">
+<div></div>
+
+</div>
+
+
+
+#box {
+  display: flex;width: 800px;background:rgb(219, 218, 218);height: 200px;
+  flex-direction: row;   /*分布方向为水平 */
+  justify-content: center;  /* 该行和下行使得容器内的项目垂直居中 */
+  align-items: center;
+}

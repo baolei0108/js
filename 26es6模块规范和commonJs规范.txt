@@ -1,0 +1,18 @@
+es6规范不需要在node.js环境下就可以运行
+
+规范是：
+import 引入模块
+export 导出模块
+export default A  导出一个对象
+export {A,B,C}   导出多个对象
+
+
+commonJs规范是需要在node.js环境下运行的
+
+规范是：
+module.exports={} 导出一个模块（方法或者对象）
+require('./**.js')  引入一个模块
+
+
+
+

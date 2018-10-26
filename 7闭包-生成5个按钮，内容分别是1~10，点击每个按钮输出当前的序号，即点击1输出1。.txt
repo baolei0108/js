@@ -12,3 +12,56 @@ for(var i=1;i<=5;i++) {
 
     document.body.appendChild(doc);
 }
+
+
+
+
+
+
+
+ if (data.re == true) {
+        var ptname = [];
+
+        for (var i = 0; i < arr_name.length; i++) {
+            console.log(arr_name[i]);
+
+
+        //±Õ°ü
+                (function (inex) {
+                   // console.log(inex)
+                    $.ajax({
+                        url: '/api/gubatopicdetail',
+                        type: 'get',
+                        data: {
+                            htid: arr_name[inex]
+                        }
+                    }).then(function (data) {
+                       // console.log(inex)
+                        //console.log(data.result.re.name)
+                        var dt = data.result.re.name;
+                       console.log('dtttt')
+                       console.log(dt)
+
+                        ptname[inex] = (dt)
+                        console.log(ptname)
+                    })
+
+
+                })(i);
+
+
+
+        }//for½áÊø
+
+
+
+        // setTimeout(function(){
+        //     console.log(ptname)
+
+        // }, 2000)
+
+        console.log(ptname)
+
+
+
+    }
