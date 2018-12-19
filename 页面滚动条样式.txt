@@ -1,0 +1,8 @@
+/* 修改原始页面滚动条样式 */
+div::-webkit-scrollbar{width: 4px;background-color: white;} 
+div::-webkit-scrollbar-thumb{
+    width:4px;
+    border-radius: 30px;
+    height:1px;
+    background: #999999;
+}

@@ -1,0 +1,12 @@
+//转换新的时间格式并添加到数据上
+        for(var i = 0; i< my_data.length; i++){
+
+            var newdata = '';
+            var z1 = new Date(my_data[i].showDateTime).toLocaleDateString();
+            newdata = z1.split('/').join('-');
+
+            my_data[i].New_showDateTime = newdata;
+            
+}
+
+

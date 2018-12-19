@@ -21,6 +21,8 @@
  display: block; // 块级元素显示
    		    
  clear:both; // 清除前面元素
-	
+
+
+*zoom：1；	
 }
 不破坏文档流，没有副作用

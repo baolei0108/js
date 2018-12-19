@@ -1,0 +1,9 @@
+1、首先初始化npm
+npm init
+
+2、安装liver-server
+npm  install -g live-server
+
+3、在vs code的最底部导航栏 点击 Go Live  即可打开文件夹
+里面的html文件了，并且将http://127.0.0.1:5500前面的ip地址改为：
+电脑的局域网IP,172.31.32.52即可将html地址发给同事看也可以

@@ -1,0 +1,32 @@
+单行：
+.text{
+    white-space:nowrap;
+    overflow:hidden;
+    text-overflow:ellipsis;
+}
+
+
+
+多行：
+.abody {
+    display: block;
+    width: 380px;
+    height: 64px;
+
+    //重点
+    overflow: hidden;
+    display: -webkit-box;
+    -webkit-box-orient: vertical;
+    -webkit-line-clamp: 3;  //规定多行文本最多显示的行数
+
+}
+
+
+
+3. 多行省略号在a链接中使用显示有bug
+现象是省略号不在文章末尾显示，而是在文章中间，就是文章开头提到的错误现象。这种现象出现在移动端，PC端测试了下，可以正常显示。可能跟浏览器内核有关。
+
+
+解决办法：将需要省略号的文本不直接用a标签包裹。或是在a标签内再嵌套一层。
+
+

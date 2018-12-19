@@ -1,1 +1,10 @@
 {{=((value.clickNumber)/10000).toFixed(2)}}万
+
+
+
+
+//画机构
+//  var CompanyCode = "80140708";
+//  var name = "东方财富";
+//  var name2 = "创业黑马";
+//  myDrawJigou(CompanyCode, name2);

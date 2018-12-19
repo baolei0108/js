@@ -1,0 +1,95 @@
+promise好处是解决回调地狱（Callback Hell）问题
+
+一般回调地狱就是：ajax里面嵌套ajax
+$.ajax({
+}).then{
+
+   $.ajax({
+   }).then{
+      
+           $.ajax({
+             }).then{
+
+            }
+    }
+
+}
+
+promise解决回调：
+firstAsync()
+.then(function(data){
+    //处理得到的 data 数据
+    //....
+    return secondAsync();
+})
+.then(function(data2){
+    //处理得到的 data2 数据
+    //....
+    return thirdAsync();
+})
+.then(function(data3){
+    //处理得到的 data3 数据
+    //....
+});
+
+
+我的代码：例子
+避免ajax里面嵌套ajax的操作，可以写一个函数，将ajax封装成一个promise对象（resolve()）
+然后函数返回这个promise
+后面的代码可以调用这个函数，然后执行.then操作，就可以拿到
+ajax里面的值进行下一步的操作了
+
+
+代码如下所示：
+        function myGetData(searchName, Myname) {
+            // console.log('myGetData');
+            var dataArray = [];
+            var code;
+            let p = new Promise(function (resolve, reject) {
+
+                $.ajax({
+                    url: "http://dcfm.eastmoney.com/EM_MutiSvcExpandInterface/api/js/get?type=SOSUO_LB&token=70f12f2f4f091e459a279469fe49eca5&filter=(CompanyCode='" +
+                        searchName + "')",
+                    type: 'get',
+                    dataType: "jsonp",
+                    // jsonp: "cb",
+                    data: {
+
+                    },
+                    success: function (data) {
+                        console.log('data  一级  原数据222')
+                        console.log(data);
+                        resolve(data);
+
+                    },
+                    error: function (err) {
+                        console.log('error')
+                        reject();
+                    }
+                })
+
+            });
+
+            return p;
+
+        }
+
+
+        var searchName = "80140708";
+        var Myname = "东方财富";
+
+        var data1 = myGetData(searchName, Myname);
+        var data2 = myGetData(searchName, Myname);
+
+        data1.then(function (res) {
+            console.log(res)
+        })
+
+        //当需要等待两个ajax都执行完然后返回结果的是用promise.all
+        Promise.all([data1, data2]).then( (res) => {
+            console.log(res)
+
+        }).catch( (err) =>{
+            console.log(err)
+
+        })

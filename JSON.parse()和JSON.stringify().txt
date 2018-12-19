@@ -1,0 +1,4 @@
+JSON.parse() 是将一个字符串解析出json对象
+
+
+JSON.stringify()  是将一个对象解析出字符串

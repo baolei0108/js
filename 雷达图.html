@@ -1,0 +1,439 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+
+    <style>
+        .dongcai {
+            /* border: 1px solid #B8B8B8; */
+            /* width: 240px;
+            height: 180px; */
+        }
+    </style>
+</head>
+
+<body onload="draw(data);">
+
+    <div class="dongcai">
+        <!-- <canvas id="dongcai_leida"></canvas> -->
+    </div>
+
+
+</body>
+
+</html>
+<script>
+
+     var data = [
+            {
+                name: '2018年半年报',
+                color: '#EA5504',
+                item: ['成长能力', '运营偿债能力', '现金流', '估值水平', '盈利能力'],
+                value: [0.6, 0.45, 0.6, 0.4, 0.6]
+            },
+            {
+                name: '2017年半年报',
+                color: '#EA5504',
+                item: ['成长能力', '运营偿债能力', '现金流', '估值水平', '盈利能力'],
+                value: [0.43, 0.8, 0.75, 0.8, 0.9]
+            }
+        ]
+
+
+    function draw(data) {
+        console.log(data)
+
+        var width = 240;
+        var height = 180;
+        // var width = 480;
+        // var height = 420;
+        //console.log(width);
+        
+
+        var mColorPolygon = '#B8B8B8'; //多边形颜色
+        var mCount = 5;
+        var mCenter = width / 2;
+        var mcenterY = height / 2;
+        var mRadius = mCenter - 50; //去除文本的位置,根据横坐标作为正五边形的边长
+        var mangle = Math.PI * 2 / mCount;
+
+        var redcolor = 'rgba(236, 101, 28)';
+        var redcolor2 = 'rgba(86, 156, 249)';
+
+        var areacolor = 'rgba(236, 101, 28, 0.3)';
+        var areacolor2 = 'rgba(163, 204, 255, 0.3)';
+
+        var arr1 = data[0].value;
+        var arr2 = data[1].value;
+
+        var fotterColor = 'rgba(234, 85, 4)';
+        var fotterColor2 = 'rgba(86, 156, 249)';
+
+        var font = "12px sans-serif";
+        var fontsize = 12;
+        var fontcolor = '#666666';
+
+
+        var footer_height = height * 0.92;
+
+        var fontwidth = 59; //6个字或者以上 宽度肯定大于60，需要换行
+        var everywidth = 40; //如果需要換行，則每一行的宽度
+
+        // var pointradius = width / 45;
+
+        var specialangle = 54 * Math.PI / 180;
+
+
+        //初始化
+        (function init() {
+            var dongcai_leida = document.createElement('canvas');
+            document.getElementsByClassName("dongcai")[0].appendChild(dongcai_leida);
+
+            dongcai_leida.height = height;
+            dongcai_leida.width = width;
+
+            var ctx = dongcai_leida.getContext("2d");
+            //ctx.rotate(30*Math.PI/180);
+            //console.log(ctx);
+
+            mdrawPolygon(ctx);
+            mdrawLines(ctx);
+            mdrawText(ctx);
+
+            //画2018年数据
+            mdrawArea(ctx, redcolor, areacolor, arr1);
+            mdrawArcPoint(ctx, redcolor, arr1);
+            
+            //画2017年数据
+            mdrawArea(ctx, redcolor2, areacolor2, arr2);
+            mdrawArcPoint(ctx, redcolor2, arr2);
+
+            mdrawFooter(ctx, fotterColor, font);
+
+
+        })();
+
+
+        //6个圈
+        function mdrawPolygon(ctx) {
+
+            ctx.save();
+            ctx.strokeStyle = mColorPolygon;
+
+            var danwei = mRadius / mCount;
+
+            //6个圈
+            for (var i = 0; i < mCount; i++) {
+                var mmdanwei = danwei * (1 + i);
+
+                ctx.beginPath();
+                //6条边
+                for (var j = 0; j < mCount; j++) {
+
+                    var mmangle = mangle * j + specialangle;
+                    //console.log(mmangle);
+
+                    var x = mCenter + mmdanwei * Math.cos(mmangle);
+                    var y = mcenterY + mmdanwei * Math.sin(mmangle);
+
+                    // console.log(x);
+                    // console.log('-------------');
+                    // console.log(y);
+
+                    ctx.lineTo(x, y);
+
+                }
+                //6条边结束
+
+                ctx.closePath();
+                ctx.stroke();
+            }
+
+            ctx.restore();
+
+        }
+
+
+        //6条线
+        function mdrawLines(ctx) {
+
+            ctx.save();
+
+            ctx.strokeStyle = mColorPolygon;
+
+            ctx.beginPath();
+            //画6条线
+
+            for (var i = 0; i < mCount; i++) {
+
+                var mmangle = mangle * i + specialangle;
+                ctx.moveTo(mCenter, mcenterY);
+                var x = mCenter + mRadius * Math.cos(mmangle);
+                var y = mcenterY + mRadius * Math.sin(mmangle);
+                ctx.lineTo(x, y);
+
+            }
+
+            ctx.closePath();
+            ctx.stroke();
+
+            ctx.restore();
+
+        }
+
+
+        //边上的字
+        function mdrawText(ctx) {
+
+            ctx.save();
+            ctx.fillStyle = '#666666';
+            ctx.font = "12px sans-serif";
+            var fontsize = 12;
+
+            //填充文字
+            for (var i = 0; i < mCount; i++) {
+
+                var mmangle = mangle * i + specialangle;
+
+                var x = mCenter + mRadius * Math.cos(mmangle);
+                var y = mcenterY + mRadius * Math.sin(mmangle);
+
+                //console.log(ctx.measureText(data[0].item[i].width));
+               
+                
+            //当字都少于6个字的时候
+           if(ctx.measureText( data[0].item[i]).width <= fontwidth) {
+
+                if (mmangle >= 0 && mmangle < Math.PI / 2) {
+                    ctx.fillText(data[0].item[i], x + 5, y);
+                }
+
+                if (mmangle >= Math.PI / 2 && mmangle < Math.PI) {
+                    ctx.fillText(data[0].item[i], x - ctx.measureText(data[0].item[i]).width - 3, y);
+                    
+                   // drawText(ctx, data[0].item[i], x - ctx.measureText(data[0].item[i]).width + 55, y - 30, 40);
+                 
+                }
+
+
+                if (mmangle >= Math.PI && mmangle < Math.PI * 5 / 4) {
+                    ctx.fillText(data[0].item[i], x - ctx.measureText(data[0].item[i]).width - 2, y + 5);
+                }
+
+
+                if (mmangle >= Math.PI * 5 / 4 && mmangle <= Math.PI * 3 / 2) {
+                    ctx.fillText(data[0].item[i], x - ctx.measureText(data[0].item[i]).width / 2, y - 2);
+                }
+
+                if (mmangle >= Math.PI * 7 / 4 && mmangle <= Math.PI * 2) {
+                    ctx.fillText(data[0].item[i], x + 2, y + 5);
+                }
+
+
+           }else{
+
+               if (mmangle >= 0 && mmangle < Math.PI / 2) {
+                   // ctx.fillText(data[0].item[i], x + 5, y);
+                   drawText(ctx, data[0].item[i], x + 10 , y-30, everywidth , 'left');
+                }
+
+                if (mmangle >= Math.PI / 2 && mmangle < Math.PI) {
+                    //ctx.fillText(data[0].item[i], x - ctx.measureText(data[0].item[i]).width - 3, y);
+                    
+                   drawText(ctx, data[0].item[i], x - ctx.measureText(data[0].item[i]).width + 60, y - 30, everywidth , 'right');
+                 
+                }
+
+
+                if (mmangle >= Math.PI && mmangle < Math.PI * 5 / 4) {
+                    //ctx.fillText(data[0].item[i], x - ctx.measureText(data[0].item[i]).width - 2, y + 5);
+                    drawText(ctx, data[0].item[i], x - 2, y - 14, everywidth , 'right');
+                }
+
+
+                if (mmangle >= Math.PI * 5 / 4 && mmangle <= Math.PI * 3 / 2) {
+                    ctx.fillText(data[0].item[i], x - ctx.measureText(data[0].item[i]).width / 2, y - 2 , 'right');
+                }
+
+                if (mmangle >= Math.PI * 7 / 4 && mmangle <= Math.PI * 2) {
+                   // ctx.fillText(data[0].item[i], x + 2, y + 5);
+                   drawText(ctx, data[0].item[i], x + 5 , y - 10, everywidth , 'left');
+                }
+
+           }
+
+               
+
+
+            }
+
+            ctx.restore();
+
+        }
+
+
+
+        //底部标记
+        function mdrawFooter(ctx) {
+
+            ctx.save();
+            ctx.fillStyle = fontcolor;
+            ctx.font = font;
+            var fontsize = fontsize;
+
+            //red圆点
+            ctx.beginPath();
+            ctx.arc(width / 2 - width / 48 - ctx.measureText(data[0].name).width - ctx.measureText(data[0].name).width / 10, footer_height, 5, 0, Math.PI * 2);
+            ctx.fillStyle = fotterColor;
+            ctx.fill();
+
+            ctx.closePath();
+
+
+            ///字
+            ctx.fillStyle = fontcolor;
+            ctx.font = font;
+            var fontsize = fontsize;
+            ctx.fillText(data[0].name, width / 2 - width / 48 - ctx.measureText(data[0].name).width, footer_height + 4);
+
+
+            //blue圆点
+            ctx.beginPath();
+            ctx.arc(width / 2 + width / 48 * 2, footer_height, 5, 0, Math.PI * 2);
+            ctx.fillStyle = fotterColor2;
+            ctx.fill();
+
+            ctx.closePath();
+
+
+            ///字
+            ctx.fillStyle = fontcolor;
+            ctx.font = font;
+            var fontsize = fontsize;
+            ctx.fillText(data[1].name, width / 2 + width / 48 * 2 + ctx.measureText(data[1].name).width / 10, footer_height + 4);
+
+
+
+
+
+            ctx.restore();
+
+
+
+        }
+
+
+
+        //当一行字超过一定宽度的时候，将字换行
+        function drawText(ctx, t, x, y, w , di) {
+
+            ctx.save();
+
+            ctx.textAlign = di;
+
+            var chr = t.split("");
+            var temp = "";
+            var row = [];
+
+            for (var a = 0; a < chr.length; a++) {
+                if (ctx.measureText(temp).width < w) {
+                   // console.log('if')
+                  //  console.log(w)
+                   // console.log(ctx.measureText(temp).width)
+                        ;
+                } else {
+                    //console.log('else')
+                    row.push(temp);
+                    temp = "";
+                }
+                temp += chr[a];
+            }
+
+            row.push(temp);
+
+            for (var b = 0; b < row.length; b++) {
+                ctx.fillText(row[b], x, y + (b + 1) * 15);
+            }
+
+
+
+            ctx.restore();
+        }
+
+
+
+        //填充区域
+        function mdrawArea(ctx, color, areacolor, arr) {
+
+            ctx.save();
+
+            ctx.beginPath();
+            for (var i = 0; i < mCount; i++) {
+
+                var mmangle = mangle * i + specialangle;
+
+                var x = mCenter + mRadius * Math.cos(mmangle) * arr[i];
+
+                var y = mcenterY + mRadius * Math.sin(mmangle) * arr[i];
+
+                // console.log(x);
+                // console.log('-------------');
+                // console.log(y);
+
+                ctx.lineTo(x, y);
+
+            }
+
+            ctx.closePath();
+
+            ctx.fillStyle = areacolor;
+            ctx.fill();
+
+            ctx.strokeStyle = color;
+            ctx.stroke();
+
+            ctx.restore();
+        }
+
+
+
+        //画小圆点
+        function mdrawArcPoint(ctx, color, arr) {
+            ctx.save();
+
+            for (var i = 0; i < mCount; i++) {
+
+                var mmangle = mangle * i + specialangle;
+
+                var x = mCenter + mRadius * Math.cos(mmangle) * arr[i];
+
+                var y = mcenterY + mRadius * Math.sin(mmangle) * arr[i];
+
+                ctx.beginPath();
+                ctx.arc(x, y, 3, 0, Math.PI * 2);
+                ctx.fillStyle = 'white';
+                ctx.fill();
+
+
+                ctx.strokeStyle = color;
+                ctx.stroke();
+                ctx.closePath();
+
+            }
+
+            ctx.restore();
+
+        }
+
+
+
+
+
+    }
+
+
+</script>

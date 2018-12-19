@@ -1,0 +1,65 @@
+
+JavaScript基本数据类型有6种：Undefined、Null、Boolean、String、Number、Object。
+现在：多了一种Symbol(ES6新增) 
+变量值存放在栈内存中，可直接访问和修改变量的值
+基本数据类型不存在拷贝，好比如说你无法修改数值1的值
+
+
+null和undefined的区别
+
+undefined是指声明了但是没有赋值的变量
+var  aa;
+aa
+undefiend
+
+null是指空对象
+var cc=null;
+cc
+null
+
+
+
+Symbol值作为对象属性名时，不能用点运算符，要用[ ]
+let sym = Symbol();  //声明这是一个独一无二的变量
+let a ={};
+a[sym] = 'leo';
+
+
+例子：
+
+let sum = Symbol();
+
+let a={};
+
+
+a[sum] = 'leooo';
+
+
+输出：
+a
+{Symbol(): "leooo"}
+
+let sum2 = Symbol();
+
+a[sum2] = 'bao';
+
+输出：
+{Symbol(): "leooo", Symbol(): "bao"}
+
+
+
+
+let m1 = Symbol('a')
+
+let mm = {};
+
+mm[m1] = 'welcome';
+
+mm.a = 'bao';
+输出：
+{Symbol(a): "welcome",a:"bao"}
+
+mm.a
+输出：  "bao"
+mm[m1]
+输出：  "welcome"

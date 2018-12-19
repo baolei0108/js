@@ -1,0 +1,16 @@
+一般在ie7下面  display:inline-block无效果的情况
+
+
+
+ /*推荐:IE6、7*/ 
+div { 
+            display:inline-block;
+             *zoom:1;  //添加
+             *display: inline;  //添加
+}
+
+注意一点的是：让  *display: inline; 在下方，覆盖掉display:inline-block;
+
+
+
+
