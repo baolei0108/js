@@ -24,23 +24,25 @@ var a=10;
 
 function   bar(){
     
-console.log(a)    //undefined
+    console.log(a)    //undefined
     
-var a=5;
+    var a=5;
     
-function foo(){
+    function foo(){
        
-a=3;
+     a=3;
        
-console.log(a);    //3
+     console.log(a);    //3
     
-}
+    }
     
-foo();
+    foo();
     
-console.log(a);   //3
+    console.log(a);   //3
+
 
 }
+
 
 bar();
 

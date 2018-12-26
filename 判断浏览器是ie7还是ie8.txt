@@ -1,0 +1,15 @@
+IE版本	支持的状态
+10及以下	document.all
+9及以下	document.all && !window.atob
+8及以下	document.all && !document.addEventListener
+7及以下	document.all && !document.querySelector
+6及以下	document.all && !window.XMLHttpRequest
+5.x	document.all && !document.compatMode
+
+判断是否是ie7 及以下
+if (document.all && !document.querySelector) {
+alert('IE7 or lower');
+}
+
+
+

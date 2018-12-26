@@ -1,0 +1,38 @@
+//闭包引起的：由于作用域链机制的影响，闭包只能取得内部函数的最后一个值
+    var data = [];
+    for(var i=0; i < 3; i++ ) {
+        data[i] = function () {
+            console.log(i)
+        }
+    }
+    data[0](); //3
+    data[1](); //3
+    data[2](); //3
+    console.log('=======================================================');
+    
+    //解决办法1
+    var data2 = [];
+    for(var i = 0; i< 3; i++) {
+        data2[i] = (function(num) {
+           // console.log(num);
+           return function() {
+               console.log(num);
+           }
+
+        })(i);
+    }
+    data2[0](); //0
+    data2[1](); //1
+    data2[2](); //2
+    console.log('=======================================================');
+
+    //解决办法2
+    var data3 = [];
+    for(let i=0;i < 3; i++) {
+        data3[i] = function() {
+            console.log(i)
+        }
+    }
+    data3[0](); //0
+    data3[1](); //1
+    data3[2](); //2

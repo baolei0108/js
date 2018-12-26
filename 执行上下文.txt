@@ -1,0 +1,44 @@
+执行上下文的代码会分成两个阶段进行处理：
+1、进入执行上下文  （就是进入执行上下文栈 push）
+2、代码执行   (出执行上下文栈  执行 pop)
+
+
+下面两段代码的执行结果是一样的，但是执行上下文栈的变化不一样
+
+console.log('=======================================================');
+    var scope = "global scope";
+
+    function checkscope() {
+        var scope = "local scope";
+
+        function f() {
+            return scope;
+        }
+        return f();
+    }
+    console.log(checkscope());
+
+    console.log('=======================================================');
+    var scope = "global scope";
+    function checkscope2() {
+        var scope = "local scope";
+
+        function f() {
+            return scope;
+        }
+        return f;
+    }
+    console.log(checkscope2()());
+
+第一段代码：
+ECStack.push(<checkscope> functionContext);
+ECStack.push(<f> functionContext);
+ECStack.pop();
+ECStack.pop();
+
+
+第二段代码：
+ECStack.push(<checkscope2> functionContext);
+ECStack.pop();
+ECStack.push(<f> functionContext);
+ECStack.pop();
