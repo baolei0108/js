@@ -1,0 +1,16 @@
+1.首先创建一个远程仓库
+
+2.本地寻到项目根目录下，windows下使用gitbash或cgywin
+
+3.git init 初始化本地git仓库配置
+
+4.git remote add origin [远程仓库地址] 添加远程仓库
+
+5.git add . 添加工作区代码到本地暂存区
+
+6.git commit -m"[提交描述]" 添加暂存区代码到本地仓库
+
+7.git pull origin master 将远程仓库pull下来，这是可能会报错 fatal: refusing to merge unrelated histories ，因为他们是两个不同的项目，要把两个不同的项目合并，git需要添加一句代码，这句代码是在git 2.9.2版本发生的，最新的版本需要添加**–allow-unrelated-histories**，修改后的命令为 git pull origin master --allow-unrelated-histories
+
+8. git push -u origin master 将代码push到远程仓库。这样就可以了。
+
