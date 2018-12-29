@@ -4,7 +4,7 @@
 
 3.git init 初始化本地git仓库配置
 
-4.git remote add origin [远程仓库地址] 添加远程仓库
+4.git remote add origin https://github.com/baolei0108/js.git [远程仓库地址] 添加远程仓库
 
 5.git add . 添加工作区代码到本地暂存区
 

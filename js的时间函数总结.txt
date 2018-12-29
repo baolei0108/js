@@ -1,0 +1,12 @@
+Date()  返回当日的日期和时间
+getFullYear()  从Date 对象中返回四位数的年份
+getMonth()  从Date 对象中返回月份 0-11
+getDate()  从Date对象中返回一月中的某一天1-31
+
+重要的是：
+getDay()  从Date对象中返回星期几（0-6）
+
+
+getHours() 返回Date对象中的小时
+getMinutes()  返回Date对象中的分钟
+getSeconds() 返回Date对象中的秒
