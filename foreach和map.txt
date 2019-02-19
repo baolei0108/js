@@ -1,0 +1,16 @@
+替代for 循环的 foreach  和 map
+
+a=[1,2,3]
+
+a.forEach( v => {
+   console.log(v*v) 
+})
+
+输出：
+1,4,9
+
+
+a.map( v = > {
+   console.log( v + 1)  
+})
+输出：2,3,4

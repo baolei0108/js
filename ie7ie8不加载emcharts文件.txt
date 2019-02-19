@@ -1,0 +1,10 @@
+判断浏览器类型，若是ie8 ie7以下 则不加载emcharts.js文件
+
+<script>
+            if(!('\v'=='v')){
+                console.log('hhh')
+                var js = document.createElement("SCRIPT");
+                js.src = '//hqres.eastmoney.com/emcharts/v3/lts/emcharts.min.js'
+                document.body.appendChild(js)
+            }
+</script>
