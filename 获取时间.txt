@@ -1,0 +1,7 @@
+ygPart.prototype.getlunTime = function() {
+    var d = new Date();//获取系统当前时间
+    d.setMinutes(d.getMinutes() + d.getTimezoneOffset())
+    youWant = (("0" + (d.getMonth() + 1)).slice(-2)) + '-' + (("0" + (d.getDate())).slice(-2)) + ' ' + ("0" + (d.getHours())).slice(-2) + ':' + ("0" + (d.getMinutes())).slice(-2) + ':' + ("0" + (d.getSeconds())).slice(-2);
+    $(".lundun_time").html(youWant)
+
+}

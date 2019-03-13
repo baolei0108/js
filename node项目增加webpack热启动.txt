@@ -1,0 +1,9 @@
+在package.json里面增加配置
+
+ "scripts": {
+    "webpack": ".\\node_modules\\.bin\\webpack -w",
+  },
+
+启动实时启动webpack:
+
+npm run webpack
